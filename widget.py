@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QMenuBar
+from PySide6.QtWidgets import QWidget
 
 class Widget(QWidget):
     def __init__(self):
