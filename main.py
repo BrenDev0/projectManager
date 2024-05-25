@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QApplication
-from database import Widget
+from widget import Widget
 import sys
 
 app = QApplication(sys.argv)
