@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QMenuBar, QVBoxLayout
+from PySide6.QtWidgets import QWidget, QMenuBar, QVBoxLayout, QToolBar
 import sqlite3
 
 class Widget(QWidget):
@@ -19,17 +19,19 @@ class Widget(QWidget):
         save_project = file_menu.addAction("Save")
         save_project.triggered.connect(self.save_data)
 
+        save_as = file_menu.addAction("Save As")
+        save_as.triggered.connect(self.save_data_as)
+
         #edit menu
         
 
-
-        
 
         #layouts
 
         #main layout 
         layout = QVBoxLayout() 
         layout.addWidget(menu_bar)
+
 
         self.setLayout(layout)
 
@@ -44,6 +46,9 @@ class Widget(QWidget):
 
     def save_data(self):
         print("Save")
+
+    def save_data_as(self):
+        print("Save As")    
     
    
    
