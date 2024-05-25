@@ -19,6 +19,9 @@ class Widget(QWidget):
         save_project = file_menu.addAction("Save")
         save_project.triggered.connect(self.save_data)
 
+        #edit menu
+        
+
 
         
 
