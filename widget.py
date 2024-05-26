@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget, QMenuBar, QVBoxLayout, QToolBar
-import sqlite3
+from models import Database
 
 class Widget(QWidget):
     def __init__(self):
@@ -37,9 +37,6 @@ class Widget(QWidget):
 
 
     
-    def create_connection(self):
-        self.connection = sqlite3.connect("Project Manager")
-        return self.connection
 
     def create_new_project(self):
         print("New Project")  
