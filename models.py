@@ -23,6 +23,11 @@ class Database:
         self.cur.execute("""DELETE FROM projects WHERE name = ?""", name)   
         self.conn.commit() 
 
+    def read(self):
+        self.cur.execute("""SELECT * FROM projects""")    
+        row = self.cur.fetchall()
+        print(row)
+
 
 class Project:
     def __init__(self):
@@ -40,7 +45,13 @@ class Project:
         )""", id)  
 
     def insert(self, name, data):
-        self.cur.execute("""INSERT OR IGNORE INTO ?  VALUES (?,?,?,?)""", (name, data))       
+        self.cur.execute("""INSERT OR IGNORE INTO ?  VALUES (?,?,?,?)""", (name, data))  
+        self.conn.commit()
+
+    def read(self, table_name):
+        self.cur.execute("""SELECT * FROM ?""", table_name) 
+        row = self.cur.fetchall()
+        print(row)    
 
 
 
