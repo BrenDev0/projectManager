@@ -1,11 +1,13 @@
-from PySide6.QtWidgets import QWidget, QMenuBar, QVBoxLayout, QToolBar
-from models import Database
+from PySide6.QtWidgets import QWidget, QMenuBar, QVBoxLayout
+from models.database import Database, Project
+
 
 class Widget(QWidget):
     def __init__(self):
         super().__init__()
 
         self.setWindowTitle("Project Manager")
+        
 
         #menubar 
         menu_bar = QMenuBar()
@@ -31,7 +33,7 @@ class Widget(QWidget):
         #main layout 
         layout = QVBoxLayout() 
         layout.addWidget(menu_bar)
-
+        
 
         self.setLayout(layout)
 
@@ -39,10 +41,10 @@ class Widget(QWidget):
     
 
     def create_new_project(self):
-        print("New Project")  
+        print("new project") 
 
     def save_data(self):
-        print("Save")
+        print("save")
 
     def save_data_as(self):
         print("Save As")    

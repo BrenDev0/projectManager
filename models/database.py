@@ -1,5 +1,6 @@
 import sqlite3
 
+
 class Database:
     def __init__(self):
         self.conn = sqlite3.connect("Project_manager.db")
@@ -52,6 +53,12 @@ class Project:
         self.cur.execute("""SELECT * FROM ?""", table_name) 
         row = self.cur.fetchall()
         print(row)    
+
+
+
+
+
+        
 
 
 
