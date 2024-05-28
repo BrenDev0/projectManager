@@ -1,5 +1,7 @@
-from PySide6.QtWidgets import QWidget, QMenuBar, QVBoxLayout
+from PySide6.QtWidgets import QWidget, QMenuBar, QVBoxLayout, QHBoxLayout, QStackedWidget
 from models.database import Database, Project
+from models.dashboard import Dashboard
+from models.new_project import New_project
 
 
 class Widget(QWidget):
@@ -7,6 +9,12 @@ class Widget(QWidget):
         super().__init__()
 
         self.setWindowTitle("Project Manager")
+        self.content = QStackedWidget()
+
+        # window content
+        self.content.addWidget(Dashboard()) #0
+        self.content.addWidget(New_project())#1
+
         
 
         #menubar 
@@ -33,6 +41,7 @@ class Widget(QWidget):
         #main layout 
         layout = QVBoxLayout() 
         layout.addWidget(menu_bar)
+        layout.addWidget(self.content)
         
 
         self.setLayout(layout)
@@ -41,13 +50,13 @@ class Widget(QWidget):
     
 
     def create_new_project(self):
-        print("new project") 
+        self.content.setCurrentIndex(1)
 
     def save_data(self):
         print("save")
 
     def save_data_as(self):
-        print("Save As")    
+        print("Save as")  
     
    
    
