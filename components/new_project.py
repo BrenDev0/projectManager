@@ -21,8 +21,9 @@ class New_project(QWidget):
         button_submit = QPushButton("Submit")
         button_submit.clicked.connect(self.submit)
 
-        button_back = QPushButton("Back")
-        button_back.clicked.connect(self.back)
+        self.button_back = QPushButton("Back")
+
+
         
 
         #layouts
@@ -43,8 +44,9 @@ class New_project(QWidget):
 
         #buttons
         button_layout = QHBoxLayout()
-        button_layout.addWidget(button_back)
+        button_layout.addWidget(self.button_back)
         button_layout.addWidget(button_submit)
+        
 
         #details
         details_layout = QVBoxLayout()
@@ -68,4 +70,4 @@ class New_project(QWidget):
         pass
 
     def back(self):
-        pass
+     pass

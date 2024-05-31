@@ -10,10 +10,14 @@ class Widget(QWidget):
 
         self.setWindowTitle("Project Manager")
         self.content = QStackedWidget()
+        self.dashboard = Dashboard()
+        self.new_project = New_project()
+        self.connections()
+        
 
         # window content
-        self.content.addWidget(Dashboard()) #0
-        self.content.addWidget(New_project())#1
+        self.content.addWidget(self.dashboard) #0
+        self.content.addWidget(self.new_project)#1
 
         
 
@@ -24,7 +28,7 @@ class Widget(QWidget):
 
         #file menu
         new_project = file_menu.addAction("New Project")
-        new_project.triggered.connect(self.create_new_project)
+        new_project.triggered.connect(self.page_create_new_project)
 
         save_project = file_menu.addAction("Save")
         save_project.triggered.connect(self.save_data)
@@ -49,14 +53,22 @@ class Widget(QWidget):
 
     
 
-    def create_new_project(self):
-        self.content.setCurrentIndex(1)
+    def page_create_new_project(self):
+       self.content.setCurrentIndex(1)
 
     def save_data(self):
         print("save")
 
     def save_data_as(self):
         print("Save as")  
+
+    def connections(self):
+        self.new_project.button_back.clicked.connect(self.page_dashboard)
+
+    def page_dashboard(self):
+        self.content.setCurrentIndex(0)    
+    
+   
     
    
    
