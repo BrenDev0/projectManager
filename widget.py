@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget, QMenuBar, QVBoxLayout, QHBoxLayout, QStackedWidget
 from models.database import Database, Project
-from models.dashboard import Dashboard
-from models.new_project import New_project
+from components.dashboard import Dashboard
+from components.new_project import New_project
 
 
 class Widget(QWidget):
