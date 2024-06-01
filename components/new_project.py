@@ -1,14 +1,19 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QGroupBox, QPushButton
-
+from models.database import Database
 
 
 class New_project(QWidget):
     def __init__(self):
         super().__init__()
 
+        #database
+        self.db = Database()
+        
+
         #content
         name_label = QLabel("Project Name: ")
         name_line_edit = QLineEdit()
+        
 
         details = QGroupBox("Project Details")
 
@@ -20,9 +25,14 @@ class New_project(QWidget):
 
         button_submit = QPushButton("Submit")
         button_submit.clicked.connect(self.submit)
-
         self.button_back = QPushButton("Back")
 
+
+        self.project = [
+            name_line_edit.text(),
+            language_line_edit.text(),
+            stack_line_edit.text()
+        ]
 
         
 
@@ -30,7 +40,8 @@ class New_project(QWidget):
         #name
         name_layout = QHBoxLayout()
         name_layout.addWidget(name_label)
-        name_layout.addWidget(name_line_edit) 
+        name_layout.addWidget(name_line_edit)
+
 
         #language
         language_layout = QHBoxLayout()
@@ -67,7 +78,7 @@ class New_project(QWidget):
         self.setLayout(layout)
 
     def submit(self):
-        pass
+        self.db.insert(self.project)
+        print("project submited")
 
-    def back(self):
-     pass
+    

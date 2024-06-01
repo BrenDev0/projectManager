@@ -64,6 +64,7 @@ class Widget(QWidget):
 
     def connections(self):
         self.new_project.button_back.clicked.connect(self.page_dashboard)
+        
 
     def page_dashboard(self):
         self.content.setCurrentIndex(0)    

@@ -8,17 +8,17 @@ class Database:
         self.create_table()
 
     def create_table(self):
-        self.cur.execute("""CREATE TABLE IF NOT EXIST projects (
+        self.cur.execute("""CREATE TABLE IF NOT EXISTS projects (
         projectid INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
-        date DATE,
         language TEXT,
-        library TEXT                                                  
+        stack TEXT                                                  
         )""") 
     
     def insert(self, project):
-        self.cur.execute("""INSERT OR IGNORE INTO projects VALUES (?,?,?,?)""", project)
+        self.cur.execute("""INSERT OR IGNORE INTO projects (name, language, stack) VALUES (?,?,?)""", project)
         self.conn.commit() 
+        
 
     def delete(self, name):
         self.cur.execute("""DELETE FROM projects WHERE name = ?""", name)   
