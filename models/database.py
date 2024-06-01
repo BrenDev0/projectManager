@@ -3,7 +3,7 @@ import sqlite3
 
 class Database:
     def __init__(self):
-        self.conn = sqlite3.connect("Project_manager.db")
+        self.conn = sqlite3.connect("Project_Manager.db")
         self.cur =  self.conn.cursor()
         self.create_table()
 
