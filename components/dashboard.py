@@ -1,5 +1,6 @@
-from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QPushButton
+from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QPushButton, QAbstractItemView
 from models.database import Database
+
 
 class Dashboard(QWidget):
     def __init__(self):
@@ -11,8 +12,11 @@ class Dashboard(QWidget):
 
         #table
         self.table = QTableWidget()
-        self.table.setColumnCount(3)
-        self.table.setHorizontalHeaderLabels(["Name", "Language", "Stack"])
+        self.table.setColumnCount(4)
+        self.table.setHorizontalHeaderLabels(["id", "Name", "Language", "Stack"])
+        self.table.hideColumn(0)
+        self.table.itemSelectionChanged.connect(self.select_row)
+        
 
         #buttons
         button_refresh = QPushButton("Refresh")
@@ -43,11 +47,18 @@ class Dashboard(QWidget):
         row = 0
         
         for i in projects:
-            self.table.setItem(row, 0, QTableWidgetItem(i[1]))
-            self.table.setItem(row, 1, QTableWidgetItem(i[2]))
-            self.table.setItem(row, 2, QTableWidgetItem(i[3]))
+            self.table.setItem(row, 0, QTableWidgetItem(i[0]))
+            self.table.setItem(row, 1, QTableWidgetItem(i[1]))
+            self.table.setItem(row, 2, QTableWidgetItem(i[2]))
+            self.table.setItem(row, 3, QTableWidgetItem(i[3]))
             row = row + 1
            
+
+    def select_row(self):
+        row = self.table.currentRow()
+        self.table.selectRow(row)
+        
+        
 
             
 
