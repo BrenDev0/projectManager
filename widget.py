@@ -63,11 +63,12 @@ class Widget(QWidget):
         print("Save as")  
 
     def connections(self):
-        self.new_project.button_back.clicked.connect(self.page_dashboard)
+        self.new_project.button_dashboard.clicked.connect(self.page_dashboard)
         
-
+    #function for button_dashboard on new project page
     def page_dashboard(self):
-        self.content.setCurrentIndex(0)    
+        self.content.setCurrentIndex(0) 
+        self.dashboard.load_data()   
     
    
     

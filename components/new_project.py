@@ -25,7 +25,7 @@ class New_project(QWidget):
 
         button_submit = QPushButton("Submit")
         button_submit.clicked.connect(self.submit)
-        self.button_back = QPushButton("Back")
+        self.button_dashboard = QPushButton("Dashboard") #function on widget file
 
 
 
@@ -48,7 +48,7 @@ class New_project(QWidget):
 
         #buttons
         button_layout = QHBoxLayout()
-        button_layout.addWidget(self.button_back)
+        button_layout.addWidget(self.button_dashboard)
         button_layout.addWidget(button_submit)
         
 
@@ -61,9 +61,6 @@ class New_project(QWidget):
         details.setLayout(details_layout)
 
         
-        
-
-
         #main layout 
         layout = QVBoxLayout()
         layout.addWidget(details)
@@ -79,6 +76,10 @@ class New_project(QWidget):
             self.stack_line_edit.text()
         ]
         self.db.insert(project)
+
+        self.name_line_edit.clear()
+        self.language_line_edit.clear()
+        self.stack_line_edit.clear()
        
          
 
