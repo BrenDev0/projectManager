@@ -12,46 +12,39 @@ class New_project(QWidget):
 
         #content
         name_label = QLabel("Project Name: ")
-        name_line_edit = QLineEdit()
+        self.name_line_edit = QLineEdit()
         
 
         details = QGroupBox("Project Details")
 
         language_label = QLabel("Language: ")
-        language_line_edit = QLineEdit()
+        self.language_line_edit = QLineEdit()
 
         stack_label = QLabel("Stack: ")
-        stack_line_edit = QLineEdit()
+        self.stack_line_edit = QLineEdit()
 
         button_submit = QPushButton("Submit")
         button_submit.clicked.connect(self.submit)
         self.button_back = QPushButton("Back")
 
 
-        self.project = [
-            name_line_edit.text(),
-            language_line_edit.text(),
-            stack_line_edit.text()
-        ]
-
-        
 
         #layouts
         #name
         name_layout = QHBoxLayout()
         name_layout.addWidget(name_label)
-        name_layout.addWidget(name_line_edit)
+        name_layout.addWidget(self.name_line_edit)
 
 
         #language
         language_layout = QHBoxLayout()
         language_layout.addWidget(language_label)
-        language_layout.addWidget(language_line_edit)
+        language_layout.addWidget(self.language_line_edit)
 
          #stack
         stack_layout = QHBoxLayout()
         stack_layout.addWidget(stack_label)
-        stack_layout.addWidget(stack_line_edit)
+        stack_layout.addWidget(self.stack_line_edit)
 
         #buttons
         button_layout = QHBoxLayout()
@@ -66,6 +59,8 @@ class New_project(QWidget):
         details_layout.addLayout(stack_layout)
 
         details.setLayout(details_layout)
+
+        
         
 
 
@@ -78,7 +73,13 @@ class New_project(QWidget):
         self.setLayout(layout)
 
     def submit(self):
-        self.db.insert(self.project)
-        print("project submited")
+        project = [
+            self.name_line_edit.text(),
+            self.language_line_edit.text(),
+            self.stack_line_edit.text()
+        ]
+        self.db.insert(project)
+       
+         
 
     
