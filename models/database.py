@@ -25,19 +25,23 @@ class Database:
         self.conn.commit() 
 
     def read(self):
-        self.cur.execute("""SELECT * FROM projects""")    
+        self.cur.execute("SELECT * FROM projects")    
         row = self.cur.fetchall()
-        print(row)
+        return row
+
+    def get_project(self, id):
+       project = self.cur.execute("SELECT * FROM projects WHERE projectid = ?", id)
+       return project.fetchone() 
+      
 
 
 class Project:
     def __init__(self):
         self.conn = sqlite3.connect("project_manager.db")
         self.cur = self.conn.cursor() 
-        self.create_table()  
-
+         
     def create_table(self, id):
-        self.cur.execute("""CREATE TABLE IF NOT EXIST ? (
+        self.cur.execute("""CREATE TABLE IF NOT EXISTS ? (
         type TEXT,
         description, TEXT,
         phase TEXT,

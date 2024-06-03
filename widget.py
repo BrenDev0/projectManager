@@ -15,6 +15,7 @@ class Widget(QWidget):
         self.new_project = New_project()
         self.connections()
         
+        
 
         # window content
         self.content.addWidget(self.dashboard) #0
@@ -71,13 +72,19 @@ class Widget(QWidget):
     #function for button_dashboard on new project page
     def page_dashboard(self):
         self.content.setCurrentIndex(0) 
-        self.dashboard.load_data()  
+        self.dashboard.load_data() 
+        if self.content.count() == 3:
+            self.content.removeWidget(self.project)
+        else:
+            pass    
 
     # function for button_manage on dashboard
     def page_manage(self):
         id = self.dashboard.table.item(self.dashboard.table.currentRow(), 0).text()
-        self.content.addWidget(Manager(id))
+        self.project = Manager(id)
+        self.content.addWidget(self.project)
         self.content.setCurrentIndex(2)
+        
         
              
     

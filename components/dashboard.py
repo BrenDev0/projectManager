@@ -43,9 +43,9 @@ class Dashboard(QWidget):
     def load_data(self):
         count = self.db.cur.execute("SELECT COUNT(*) FROM projects")
         self.table.setRowCount(count.fetchone()[0])
-        projects = self.db.cur.execute("SELECT * FROM projects")
-        row = 0
+        projects = self.db.read()
         
+        row = 0
         for i in projects:
             self.table.setItem(row, 0, QTableWidgetItem(str(i[0])))
             self.table.setItem(row, 1, QTableWidgetItem(i[1]))
