@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QPushButton, QAbstractItemView
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QPushButton
 from models.database import Database
 
 
@@ -22,13 +22,13 @@ class Dashboard(QWidget):
         button_refresh = QPushButton("Refresh")
         button_refresh.clicked.connect(self.load_data)
 
-        button_manage = QPushButton("Manage")
+        self.button_manage = QPushButton("Manage") # function on widget file
         
 
         #layouts
         button_layout = QHBoxLayout()
         button_layout.addWidget(button_refresh)
-        button_layout.addWidget(button_manage)
+        button_layout.addWidget(self.button_manage)
         
         #main
         layout = QVBoxLayout()
@@ -47,7 +47,7 @@ class Dashboard(QWidget):
         row = 0
         
         for i in projects:
-            self.table.setItem(row, 0, QTableWidgetItem(i[0]))
+            self.table.setItem(row, 0, QTableWidgetItem(str(i[0])))
             self.table.setItem(row, 1, QTableWidgetItem(i[1]))
             self.table.setItem(row, 2, QTableWidgetItem(i[2]))
             self.table.setItem(row, 3, QTableWidgetItem(i[3]))
@@ -57,6 +57,7 @@ class Dashboard(QWidget):
     def select_row(self):
         row = self.table.currentRow()
         self.table.selectRow(row)
+        
         
         
 

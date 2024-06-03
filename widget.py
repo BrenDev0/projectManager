@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QWidget, QMenuBar, QVBoxLayout, QHBoxLayout, QStac
 from models.database import Database, Project
 from components.dashboard import Dashboard
 from components.new_project import New_project
+from components.manage_project import Manager
 
 
 class Widget(QWidget):
@@ -17,7 +18,8 @@ class Widget(QWidget):
 
         # window content
         self.content.addWidget(self.dashboard) #0
-        self.content.addWidget(self.new_project)#1
+        self.content.addWidget(self.new_project) #1
+    
 
         
 
@@ -64,11 +66,20 @@ class Widget(QWidget):
 
     def connections(self):
         self.new_project.button_dashboard.clicked.connect(self.page_dashboard)
+        self.dashboard.button_manage.clicked.connect(self.page_manage)
         
     #function for button_dashboard on new project page
     def page_dashboard(self):
         self.content.setCurrentIndex(0) 
-        self.dashboard.load_data()   
+        self.dashboard.load_data()  
+
+    # function for button_manage on dashboard
+    def page_manage(self):
+        id = self.dashboard.table.item(self.dashboard.table.currentRow(), 0).text()
+        self.content.addWidget(Manager(id))
+        self.content.setCurrentIndex(2)
+        
+             
     
    
     
