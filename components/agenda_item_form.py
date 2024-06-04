@@ -20,7 +20,7 @@ class Form(QWidget):
         self.select.addItems(["Bug", "Feature", "Goal"])
 
         #Buttons 
-        button_add_item = QPushButton("Add Item")
+        self.button_add_item = QPushButton("Add Item")
 
 
         #layouts 
@@ -39,7 +39,7 @@ class Form(QWidget):
         layout = QVBoxLayout()
         layout.addLayout(item_layout)
         layout.addLayout(category_layout)
-        layout.addWidget(button_add_item)
+        layout.addWidget(self.button_add_item)
 
 
         self.setLayout(layout)

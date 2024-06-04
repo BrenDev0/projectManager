@@ -12,6 +12,7 @@ class Manager(QWidget):
         self.db = Database()
         self.project = self.db.get_project(projectid)
         self.new_item = Form()
+        self.connections()
 
 
         
@@ -85,9 +86,15 @@ class Manager(QWidget):
     
 
         self.setLayout(layout)
+    #connections 
+    def connections(self):
+         self.new_item.button_add_item.clicked.connect(self.add_item)
 
     def new_agenda_item(self):
             self.new_item.show()
+
+    def add_item(self):
+         self.new_item.hide()        
 
     
     
