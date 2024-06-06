@@ -76,7 +76,7 @@ class New_project(QWidget):
             self.stack_line_edit.text()
         ]
         self.db.insert(project)
-
+        
         self.name_line_edit.clear()
         self.language_line_edit.clear()
         self.stack_line_edit.clear()

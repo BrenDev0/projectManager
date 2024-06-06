@@ -4,6 +4,7 @@ import sqlite3
 class Database:
     def __init__(self):
         self.conn = sqlite3.connect("Project_Manager.db")
+        self.conn.execute("PRAGMA foreign_keys = ON")
         self.cur =  self.conn.cursor()
         self.create_table()
 
@@ -16,12 +17,11 @@ class Database:
         )""") 
     
     def insert(self, project):
-        self.cur.execute("""INSERT OR IGNORE INTO projects (name, language, stack) VALUES (?,?,?)""", project)
+        project = self.cur.execute("""INSERT OR IGNORE INTO projects (name, language, stack) VALUES (?,?,?)""", project)
         self.conn.commit() 
         
-
     def delete(self, name):
-        self.cur.execute("""DELETE FROM projects WHERE name = ?""", name)   
+        self.cur.execute("DELETE FROM projects WHERE name = ?", name)   
         self.conn.commit() 
 
     def read(self):
@@ -35,28 +35,34 @@ class Database:
       
 
 
-class Project:
+class Items:
     def __init__(self):
-        self.conn = sqlite3.connect("project_manager.db")
+        self.conn = sqlite3.connect("Project_Manager.db")
+        self.conn.execute("PRAGMA foreign_key = ON")
         self.cur = self.conn.cursor() 
+        self.create_table()
          
-    def create_table(self, id):
-        self.cur.execute("""CREATE TABLE IF NOT EXISTS ? (
-        type TEXT,
-        description, TEXT,
-        phase TEXT,
-        FOREIGNKEY(project) REFERENCES(projectid)   
-                      
-        )""", id)  
+    def create_table(self):
+        self.cur.execute("""CREATE TABLE IF NOT EXISTS items (
+        itemid INTEGER PRIMARY KEY AUTOINCREMENT,
+        item TEXT,
+        category TEXT,
+        description TEXT,
+        notes TEXT,
+        project INTEGER,
+        FOREIGN KEY (project)  REFERENCES projects (projectid)              
+        )""")  
+    
+    
 
-    def insert(self, name, data):
-        self.cur.execute("""INSERT OR IGNORE INTO ?  VALUES (?,?,?,?)""", (name, data))  
+    def insert(self, data):
+        self.cur.execute("""INSERT OR IGNORE INTO items (item, category, description, notes, project)  VALUES (?,?,?,?,?)""", data)  
         self.conn.commit()
 
-    def read(self, table_name):
-        self.cur.execute("""SELECT * FROM ?""", table_name) 
+    def read(self, projectid):
+        self.cur.execute("""SELECT * FROM items WHERE project = ?""", projectid) 
         row = self.cur.fetchall()
-        print(row)    
+        return row   
 
 
 

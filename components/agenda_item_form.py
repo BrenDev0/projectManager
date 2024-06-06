@@ -17,7 +17,15 @@ class Form(QWidget):
         self.category = QLabel("Category:")
         self.select = QComboBox()
         self.select.setCurrentIndex(1)
-        self.select.addItems(["Bug", "Feature", "Goal"])
+        self.select.addItems(["Bug", "Feature", "Mile Stone"])
+
+        #description
+        description = QLabel("Description:")
+        self.description_edit = QTextEdit()
+
+        #notes
+        notes = QLabel("Initial Notes:")
+        self.notes_edit = QTextEdit()
 
         #Buttons 
         self.button_add_item = QPushButton("Add Item")
@@ -35,10 +43,22 @@ class Form(QWidget):
         category_layout.addWidget(self.category)
         category_layout.addWidget(self.select)
 
+        #description
+        description_layout = QVBoxLayout()
+        description_layout.addWidget(description)
+        description_layout.addWidget(self.description_edit)
+
+        #notes
+        notes_layout = QVBoxLayout()
+        notes_layout.addWidget(notes)
+        notes_layout.addWidget(self.notes_edit)
+
         #main layout 
         layout = QVBoxLayout()
         layout.addLayout(item_layout)
         layout.addLayout(category_layout)
+        layout.addLayout(description_layout)
+        layout.addLayout(notes_layout)
         layout.addWidget(self.button_add_item)
 
 
