@@ -9,6 +9,7 @@ class Widget(QWidget):
         super().__init__()
 
         self.setWindowTitle("Project Manager")
+        self.resize(500, 500)
         self.content = QStackedWidget()
         self.dashboard = Dashboard()
         self.new_project = New_project()

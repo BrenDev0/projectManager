@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QGroupBox, QHBoxLayout, QTableWidget, QPushButton, QTableWidgetItem
+from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QGroupBox, QHBoxLayout, QTableWidget, QPushButton, QTableWidgetItem, QHeaderView
 from models.database import Database, Items
 from components.agenda_item_form import Form
 
@@ -35,12 +35,16 @@ class Manager(QWidget):
         self.agenda_table = QTableWidget()
         self.agenda_table.setColumnCount(4)
         self.agenda_table.setHorizontalHeaderLabels(["id", "Item", "Category", "Description"])
+        self.agenda_table.horizontalHeader().setStretchLastSection(True)
         self.agenda_table.hideColumn(0)
+        self.agenda_table.itemSelectionChanged.connect(self.select_row)
+        
 
         #history table
         self.history_table = QTableWidget()
         self.history_table.setColumnCount(4)
         self.history_table.setHorizontalHeaderLabels(["id", "Item", "Category", "Description"])
+        self.history_table.horizontalHeader().setStretchLastSection(True)
         self.history_table.hideColumn(0)
         #buttons
         add_item_button = QPushButton("Add Item")
@@ -103,7 +107,10 @@ class Manager(QWidget):
               self.agenda_table.setItem(row, 1, QTableWidgetItem(str(i[1])))
               self.agenda_table.setItem(row, 2, QTableWidgetItem(str(i[2])))
               self.agenda_table.setItem(row, 3, QTableWidgetItem(str(i[3])))
-             
+
+    def select_row(self):
+         row = self.agenda_table.currentRow()  
+         self.agenda_table.selectRow(row)  
 
     def add_item(self):
          print("entered")

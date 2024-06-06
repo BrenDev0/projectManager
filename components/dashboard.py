@@ -14,6 +14,7 @@ class Dashboard(QWidget):
         self.table = QTableWidget()
         self.table.setColumnCount(4)
         self.table.setHorizontalHeaderLabels(["id", "Name", "Language", "Stack"])
+        self.table.horizontalHeader().setStretchLastSection(True)
         self.table.hideColumn(0)
         self.table.itemSelectionChanged.connect(self.select_row)
         
