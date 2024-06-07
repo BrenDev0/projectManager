@@ -48,9 +48,12 @@ class Manager(QWidget):
         self.history_table.setHorizontalHeaderLabels(["id", "Item", "Category", "Description"])
         self.history_table.horizontalHeader().setStretchLastSection(True)
         self.history_table.hideColumn(0)
+        
         #buttons
         add_item_button = QPushButton("Add Item")
         add_item_button.clicked.connect(self.new_agenda_item)
+
+        view_item_button = QPushButton("View Item")
 
         #group 
         details = QGroupBox("Project Details")
@@ -71,7 +74,7 @@ class Manager(QWidget):
         stack_layout.addWidget(stack_key)
         stack_layout.addWidget(self.stack_value)
 
-        #tables
+        #tables layout
         agenda_layout = QVBoxLayout()
         agenda_layout.addWidget(agenda_table_label)
         agenda_layout.addWidget(self.agenda_table)
@@ -79,6 +82,11 @@ class Manager(QWidget):
         history_layout = QVBoxLayout()
         history_layout.addWidget(history_table_label)
         history_layout.addWidget(self.history_table)
+
+        #tables button layouts
+        action_buttons_layout = QHBoxLayout()
+        action_buttons_layout.addWidget(view_item_button)
+        action_buttons_layout.addWidget(add_item_button)
 
         #details layout
         project_details_layout = QHBoxLayout()
@@ -92,8 +100,9 @@ class Manager(QWidget):
         layout = QVBoxLayout()
         layout.addWidget(details)
         layout.addLayout(agenda_layout)
+        layout.addLayout(action_buttons_layout)
         layout.addLayout(history_layout)
-        layout.addWidget(add_item_button)
+        
     
 
         self.setLayout(layout)
