@@ -32,6 +32,7 @@ class Manager(QWidget):
         #Tables
 
         #agenda table
+        agenda_table_label = QLabel("Project Agenda")
         self.agenda_table = QTableWidget()
         self.agenda_table.setColumnCount(4)
         self.agenda_table.setHorizontalHeaderLabels(["id", "Item", "Category", "Description"])
@@ -41,6 +42,7 @@ class Manager(QWidget):
         
 
         #history table
+        history_table_label = QLabel("Project History")
         self.history_table = QTableWidget()
         self.history_table.setColumnCount(4)
         self.history_table.setHorizontalHeaderLabels(["id", "Item", "Category", "Description"])
@@ -69,6 +71,15 @@ class Manager(QWidget):
         stack_layout.addWidget(stack_key)
         stack_layout.addWidget(self.stack_value)
 
+        #tables
+        agenda_layout = QVBoxLayout()
+        agenda_layout.addWidget(agenda_table_label)
+        agenda_layout.addWidget(self.agenda_table)
+
+        history_layout = QVBoxLayout()
+        history_layout.addWidget(history_table_label)
+        history_layout.addWidget(self.history_table)
+
         #details layout
         project_details_layout = QHBoxLayout()
         project_details_layout.addLayout(name_layout)
@@ -80,8 +91,8 @@ class Manager(QWidget):
         #main layout
         layout = QVBoxLayout()
         layout.addWidget(details)
-        layout.addWidget(self.agenda_table)
-        layout.addWidget(self.history_table)
+        layout.addLayout(agenda_layout)
+        layout.addLayout(history_layout)
         layout.addWidget(add_item_button)
     
 
@@ -104,9 +115,9 @@ class Manager(QWidget):
         row = 0
         for i in items:
               self.agenda_table.setItem(row, 0, QTableWidgetItem(str(i[0])))
-              self.agenda_table.setItem(row, 1, QTableWidgetItem(str(i[1])))
-              self.agenda_table.setItem(row, 2, QTableWidgetItem(str(i[2])))
-              self.agenda_table.setItem(row, 3, QTableWidgetItem(str(i[3])))
+              self.agenda_table.setItem(row, 1, QTableWidgetItem(i[1]))
+              self.agenda_table.setItem(row, 2, QTableWidgetItem(i[2]))
+              self.agenda_table.setItem(row, 3, QTableWidgetItem(i[3]))
 
     def select_row(self):
          row = self.agenda_table.currentRow()  
@@ -124,7 +135,10 @@ class Manager(QWidget):
          print(item)
          self.new_item.hide() 
          self.items_db.insert(item) 
-         self.load_data()     
+         self.load_data()   
+
+    def view_item(self):
+         pass      
 
     
     
