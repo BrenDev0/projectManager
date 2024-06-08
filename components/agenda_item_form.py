@@ -6,6 +6,7 @@ class Form(QWidget):
         super().__init__()
 
         self.setWindowTitle("New Item")
+        self.resize(500, 500)
 
         #content
 

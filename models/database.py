@@ -21,7 +21,7 @@ class Database:
         self.conn.commit() 
         
     def delete(self, name):
-        self.cur.execute("DELETE FROM projects WHERE name = ?", name)   
+        self.cur.execute("DELETE FROM projects WHERE projectid = ?", name)   
         self.conn.commit() 
 
     def read(self):
@@ -64,8 +64,13 @@ class Items:
         row = self.cur.fetchall()
         return row   
 
+    def delete(self, id):
+        self.cur.execute("DELETE FROM items WHERE itemid = ?", id)
+        self.cur.commit()
 
-
+    def find(self, id):
+        item = self.cur.execute("SELECT * FROM items WHERE itemid = ?", id)
+        return item.fetchone()
 
 
         

@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QGroupBox, QHBoxLayout, QTableWidget, QPushButton, QTableWidgetItem, QHeaderView
 from models.database import Database, Items
 from components.agenda_item_form import Form
+from components.view_item import ViewItem
 
 
 class Manager(QWidget):
@@ -12,6 +13,7 @@ class Manager(QWidget):
         self.db = Database()
         self.project_details = self.db.get_project(projectid)
         self.new_item = Form()
+        
         self.connections()
         
 
@@ -54,6 +56,7 @@ class Manager(QWidget):
         add_item_button.clicked.connect(self.new_agenda_item)
 
         view_item_button = QPushButton("View Item")
+        view_item_button.clicked.connect(self.view_item)
 
         #group 
         details = QGroupBox("Project Details")
@@ -147,7 +150,11 @@ class Manager(QWidget):
          self.load_data()   
 
     def view_item(self):
-         pass      
+         item = self.agenda_table.item(self.agenda_table.currentRow(), 0).text()
+         self.view = ViewItem(item)
+         self.view.show()
+
+
 
     
     
