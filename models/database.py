@@ -66,11 +66,15 @@ class Items:
 
     def delete(self, id):
         self.cur.execute("DELETE FROM items WHERE itemid = ?", id)
-        self.cur.commit()
+        self.conn.commit()
 
     def find(self, id):
         item = self.cur.execute("SELECT * FROM items WHERE itemid = ?", id)
         return item.fetchone()
+
+    def update_notes(self, data, id):
+        self.cur.execute("UPDATE items SET notes = ? WHERE itemid = ? ", (data, id))
+        self.conn.commit()
 
 
         

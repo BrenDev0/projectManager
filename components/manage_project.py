@@ -114,6 +114,7 @@ class Manager(QWidget):
     #connections 
     def connections(self):
          self.new_item.button_add_item.clicked.connect(self.add_item)
+         
 
     def new_agenda_item(self):
             self.new_item.show()
@@ -153,6 +154,16 @@ class Manager(QWidget):
          item = self.agenda_table.item(self.agenda_table.currentRow(), 0).text()
          self.view = ViewItem(item)
          self.view.show()
+         self.view.save_button.clicked.connect(self.save_notes)
+
+    def save_notes(self):
+         itemid = self.agenda_table.item(self.agenda_table.currentRow(), 0).text()
+         notes = self.view.item_notes.toPlainText()
+         self.items_db.update_notes(notes, itemid)
+         self.view.hide()
+
+         
+         
 
 
 
