@@ -16,13 +16,17 @@ class ViewItem(QWidget):
         details = QGroupBox("Item Details")
 
         item_label = QLabel("Item:")
-        item_name = QLabel(self.item[1])
+        self.item_name = QLabel(self.item[1])
+        self.item_line_edit = QLineEdit(self.item[1])
+        
 
         category_label = QLabel("Category:")
-        item_category = QLabel(self.item[2])
+        self.item_category = QLabel(self.item[2])
+        self.category_line_edit = QLineEdit(self.item[2])
 
         description_label = QLabel("Description:")
-        item_description = QLabel(self.item[3])
+        self.item_description = QLabel(self.item[3])
+        self.description_line_edit = QLineEdit(self.item[3])
 
         notes_label = QLabel("Notes:")
         self.item_notes = QTextEdit()
@@ -34,25 +38,29 @@ class ViewItem(QWidget):
         self.cancel_button = QPushButton("Cancel")
         self.cancel_button.clicked.connect(self.close_window)
         button_edit_details = QPushButton("Edit")
+        button_edit_details.clicked.connect(self.edit_details)
         
 
 
         #layouts 
 
         #item
-        item_layout = QVBoxLayout()
-        item_layout.addWidget(item_label)
-        item_layout.addWidget(item_name)
+        self.item_layout = QVBoxLayout()
+        self.item_layout.addWidget(item_label)
+        self.item_layout.addWidget(self.item_name)
+       
 
         #category
-        category_layout = QVBoxLayout()
-        category_layout.addWidget(category_label)
-        category_layout.addWidget(item_category)
+        self.category_layout = QVBoxLayout()
+        self.category_layout.addWidget(category_label)
+        self.category_layout.addWidget(self.item_category)
+       
 
         #description
-        description_layout = QVBoxLayout()
-        description_layout.addWidget(description_label)
-        description_layout.addWidget(item_description)
+        self.description_layout = QVBoxLayout()
+        self.description_layout.addWidget(description_label)
+        self.description_layout.addWidget(self.item_description)
+    
 
         #notes
         notes_layout = QVBoxLayout()
@@ -65,9 +73,10 @@ class ViewItem(QWidget):
 
         #details
         details_layout = QHBoxLayout()
-        details_layout.addLayout(item_layout)
-        details_layout.addLayout(category_layout)
-        details_layout.addLayout(description_layout)
+        details_layout.addLayout(self.item_layout)
+        details_layout.addLayout(self.category_layout)
+        details_layout.addLayout(self.description_layout)
+        
 
         details.setLayout(details_layout)
 
@@ -87,6 +96,15 @@ class ViewItem(QWidget):
 
     def close_window(self):
         self.hide()
+
+    def edit_details(self):
+        self.item_layout.replaceWidget(self.item_name, self.item_line_edit)
+
+        self.category_layout.replaceWidget(self.item_category, self.category_line_edit)
+
+        self.description_layout.replaceWidget(self.item_description, self.description_line_edit)       
+        
+
 
         
         
