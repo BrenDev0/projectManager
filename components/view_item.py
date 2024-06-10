@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import *
+from PySide6.QtCore import *
 from models.database import Items
 
 class ViewItem(QWidget):
@@ -32,6 +33,7 @@ class ViewItem(QWidget):
         self.save_button = QPushButton("Save") #slot on manage project file
         self.cancel_button = QPushButton("Cancel")
         self.cancel_button.clicked.connect(self.close_window)
+        button_edit_details = QPushButton("Edit")
         
 
 
@@ -73,6 +75,7 @@ class ViewItem(QWidget):
         #main
         layout = QVBoxLayout()
         layout.addWidget(details)
+        layout.addWidget(button_edit_details, alignment=Qt.AlignRight)
         layout.addLayout(notes_layout)
         layout.addLayout(self.button_layout)
         
