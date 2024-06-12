@@ -19,10 +19,10 @@ class ViewItem(QWidget):
         self.item_name = QLabel(self.item[1])
         self.item_line_edit = QLineEdit(self.item[1])
         
-
         category_label = QLabel("Category:")
         self.item_category = QLabel(self.item[2])
-        self.category_line_edit = QLineEdit(self.item[2])
+        self.category_select = QComboBox()
+        self.category_select.addItems(["Bug", "Feature", "MileStone"])
 
         description_label = QLabel("Description:")
         self.item_description = QLabel(self.item[3])
@@ -99,9 +99,7 @@ class ViewItem(QWidget):
 
     def edit_details(self):
         self.item_layout.replaceWidget(self.item_name, self.item_line_edit)
-
-        self.category_layout.replaceWidget(self.item_category, self.category_line_edit)
-
+        self.category_layout.replaceWidget(self.item_category, self.category_select)
         self.description_layout.replaceWidget(self.item_description, self.description_line_edit)       
         
 
