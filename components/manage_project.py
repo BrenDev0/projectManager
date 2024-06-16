@@ -122,8 +122,7 @@ class Manager(QWidget):
     def load_data(self):
         count = self.items_db.read(str(self.project_details[0]))
         self.agenda_table.setRowCount(len(count))
-        items = self.items_db.read(str(self.project_details[0]))
-        
+        items = self.items_db.read(str(self.project_details[0]))        
 
         row = 0
         for i in items:
@@ -131,6 +130,7 @@ class Manager(QWidget):
               self.agenda_table.setItem(row, 1, QTableWidgetItem(i[1]))
               self.agenda_table.setItem(row, 2, QTableWidgetItem(i[2]))
               self.agenda_table.setItem(row, 3, QTableWidgetItem(i[3]))
+              row = row + 1     
 
     def select_row(self):
          row = self.agenda_table.currentRow()  
