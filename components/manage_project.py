@@ -1,4 +1,5 @@
-from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QGroupBox, QHBoxLayout, QTableWidget, QPushButton, QTableWidgetItem, QHeaderView
+from PySide6.QtWidgets import *
+from PySide6.QtGui import QIcon
 from models.database import Database, Items
 from components.agenda_item_form import Form
 from components.view_item import ViewItem
@@ -20,6 +21,7 @@ class Manager(QWidget):
 
         
         #content 
+        
 
         #details
         name_key = QLabel("Project:")
@@ -52,10 +54,13 @@ class Manager(QWidget):
         self.history_table.hideColumn(0)
         
         #buttons
-        add_item_button = QPushButton("Add Item")
+        add_item_button = QPushButton("Add")
         add_item_button.clicked.connect(self.new_agenda_item)
 
-        view_item_button = QPushButton("View Item")
+        delete_item_button = QPushButton("Delete")
+        delete_item_button.clicked.connect(self.delete_item)
+
+        view_item_button = QPushButton("View")
         view_item_button.clicked.connect(self.view_item)
 
         #group 
@@ -88,8 +93,9 @@ class Manager(QWidget):
 
         #tables button layouts
         action_buttons_layout = QHBoxLayout()
-        action_buttons_layout.addWidget(view_item_button)
         action_buttons_layout.addWidget(add_item_button)
+        action_buttons_layout.addWidget(delete_item_button)
+        action_buttons_layout.addWidget(view_item_button)
 
         #details layout
         project_details_layout = QHBoxLayout()
@@ -155,6 +161,11 @@ class Manager(QWidget):
          self.view = ViewItem(item)
          self.view.show()
          self.view.save_button.clicked.connect(self.save_notes)
+
+    def delete_item(self):
+         itemid = self.agenda_table.item(self.agenda_table.currentRow(), 0).text()
+         self.items_db.delete(itemid)
+         self.load_data()
 
     def save_notes(self):
          itemid = self.agenda_table.item(self.agenda_table.currentRow(), 0).text()
