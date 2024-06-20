@@ -21,7 +21,6 @@ class Manager(QWidget):
 
         
         #content 
-        
 
         #details
         name_key = QLabel("Project:")
@@ -42,7 +41,7 @@ class Manager(QWidget):
         self.agenda_table.setHorizontalHeaderLabels(["id", "Item", "Category", "Description"])
         self.agenda_table.horizontalHeader().setStretchLastSection(True)
         self.agenda_table.hideColumn(0)
-        self.agenda_table.itemSelectionChanged.connect(self.select_row)
+        self.agenda_table.itemSelectionChanged.connect(self.agenda_select_row)
         
 
         #history table
@@ -52,6 +51,7 @@ class Manager(QWidget):
         self.history_table.setHorizontalHeaderLabels(["id", "Item", "Category", "Description"])
         self.history_table.horizontalHeader().setStretchLastSection(True)
         self.history_table.hideColumn(0)
+        self.history_table.itemSelectionChanged.connect(self.history_select_row)
         
         #buttons
         add_item_button = QPushButton("Add")
@@ -153,9 +153,13 @@ class Manager(QWidget):
               row = row + 1
 
 
-    def select_row(self):
+    def agenda_select_row(self):
          row = self.agenda_table.currentRow()  
          self.agenda_table.selectRow(row)  
+
+    def history_select_row(self):
+         row = self.history_table.currentRow()
+         self.history_table.selectRow(row)           
 
     def add_item(self):
          item = [
