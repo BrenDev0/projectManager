@@ -1,8 +1,8 @@
 from PySide6.QtWidgets import *
 from PySide6.QtGui import QIcon
 from models.database import Database, Items
-from components.agenda_item_form import Form
-from components.view_item import ViewItem
+from ui.agenda_item_form import Form
+from ui.view_item import ViewItem
 
 
 class Manager(QWidget):
