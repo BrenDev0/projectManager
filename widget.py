@@ -27,22 +27,13 @@ class Widget(QWidget):
         #menubar 
         menu_bar = QMenuBar()
         file_menu = menu_bar.addMenu("file")
-        edit_menu = menu_bar.addMenu("Edit")
-
+    
         #file menu
         new_project = file_menu.addAction("New Project")
         new_project.triggered.connect(self.page_create_new_project)
 
-        save_project = file_menu.addAction("Save")
-        save_project.triggered.connect(self.save_data)
-
-        save_as = file_menu.addAction("Save As")
-        save_as.triggered.connect(self.save_data_as)
-
         #edit menu
         
-
-
         #layouts
 
         #main layout 
@@ -54,16 +45,9 @@ class Widget(QWidget):
         self.setLayout(layout)
 
 
-    
-
     def page_create_new_project(self):
        self.content.setCurrentIndex(1)
 
-    def save_data(self):
-        print("save")
-
-    def save_data_as(self):
-        print("Save as")  
 
     def connections(self):
         self.new_project.button_dashboard.clicked.connect(self.page_dashboard)

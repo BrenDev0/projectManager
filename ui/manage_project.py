@@ -21,7 +21,6 @@ class Manager(QWidget):
 
         
         #content 
-        
 
         #details
         name_key = QLabel("Project:")
@@ -42,7 +41,7 @@ class Manager(QWidget):
         self.agenda_table.setHorizontalHeaderLabels(["id", "Item", "Category", "Description"])
         self.agenda_table.horizontalHeader().setStretchLastSection(True)
         self.agenda_table.hideColumn(0)
-        self.agenda_table.itemSelectionChanged.connect(self.select_row)
+        self.agenda_table.itemSelectionChanged.connect(self.agenda_select_row)
         
 
         #history table
@@ -52,10 +51,14 @@ class Manager(QWidget):
         self.history_table.setHorizontalHeaderLabels(["id", "Item", "Category", "Description"])
         self.history_table.horizontalHeader().setStretchLastSection(True)
         self.history_table.hideColumn(0)
+        self.history_table.itemSelectionChanged.connect(self.history_select_row)
         
         #buttons
         add_item_button = QPushButton("Add")
         add_item_button.clicked.connect(self.new_agenda_item)
+
+        completed_button = QPushButton("Completed")
+        completed_button.clicked.connect(self.complete_item)
 
         delete_item_button = QPushButton("Delete")
         delete_item_button.clicked.connect(self.delete_item)
@@ -94,6 +97,7 @@ class Manager(QWidget):
         #tables button layouts
         action_buttons_layout = QHBoxLayout()
         action_buttons_layout.addWidget(add_item_button)
+        action_buttons_layout.addWidget(completed_button)
         action_buttons_layout.addWidget(delete_item_button)
         action_buttons_layout.addWidget(view_item_button)
 
@@ -126,32 +130,47 @@ class Manager(QWidget):
             self.new_item.show()
 
     def load_data(self):
-        count = self.items_db.read(str(self.project_details[0]))
+        count = self.items_db.read_active(str(self.project_details[0]))
+        count_completed = self.items_db.read_completed(str(self.project_details[0]))
         self.agenda_table.setRowCount(len(count))
-        items = self.items_db.read(str(self.project_details[0]))        
-
+        self.history_table.setRowCount(len(count_completed))
+        items = self.items_db.read_active(str(self.project_details[0])) 
+        completed_items = self.items_db.read_completed(str(self.project_details[0]))  
+             
         row = 0
         for i in items:
               self.agenda_table.setItem(row, 0, QTableWidgetItem(str(i[0])))
-              self.agenda_table.setItem(row, 1, QTableWidgetItem(i[1]))
-              self.agenda_table.setItem(row, 2, QTableWidgetItem(i[2]))
-              self.agenda_table.setItem(row, 3, QTableWidgetItem(i[3]))
-              row = row + 1     
+              self.agenda_table.setItem(row, 1, QTableWidgetItem(i[2]))
+              self.agenda_table.setItem(row, 2, QTableWidgetItem(i[3]))
+              self.agenda_table.setItem(row, 3, QTableWidgetItem(i[4]))
+              row = row + 1   
+        row = 0
+        for i in completed_items:
+              self.history_table.setItem(row, 0, QTableWidgetItem(str(i[0]))) 
+              self.history_table.setItem(row, 1, QTableWidgetItem(i[2])) 
+              self.history_table.setItem(row, 2, QTableWidgetItem(i[3])) 
+              self.history_table.setItem(row, 3, QTableWidgetItem(i[4])) 
+              row = row + 1
 
-    def select_row(self):
+
+    def agenda_select_row(self):
          row = self.agenda_table.currentRow()  
          self.agenda_table.selectRow(row)  
 
+    def history_select_row(self):
+         row = self.history_table.currentRow()
+         self.history_table.selectRow(row)           
+
     def add_item(self):
-         print("entered")
          item = [
+              "active",
               self.new_item.item_line_edit.text(),
               self.new_item.select.currentText(),
               self.new_item.description_edit.toPlainText(),
               self.new_item.notes_edit.toPlainText(),
               self.project_details[0]
          ]
-         print(item)
+         
          self.new_item.hide() 
          self.items_db.insert(item) 
          self.load_data()   
@@ -166,6 +185,11 @@ class Manager(QWidget):
          itemid = self.agenda_table.item(self.agenda_table.currentRow(), 0).text()
          self.items_db.delete(itemid)
          self.load_data()
+
+    def complete_item(self):
+          itemid = self.agenda_table.item(self.agenda_table.currentRow(), 0).text()
+          self.items_db.mark_completed(itemid)
+          self.load_data() 
 
     def save_notes(self):
          itemid = self.agenda_table.item(self.agenda_table.currentRow(), 0).text()

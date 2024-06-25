@@ -45,6 +45,7 @@ class Items:
     def create_table(self):
         self.cur.execute("""CREATE TABLE IF NOT EXISTS items (
         itemid INTEGER PRIMARY KEY AUTOINCREMENT,
+        status TEXT,
         item TEXT,
         category TEXT,
         description TEXT,
@@ -56,13 +57,18 @@ class Items:
     
 
     def insert(self, data):
-        self.cur.execute("""INSERT OR IGNORE INTO items (item, category, description, notes, project)  VALUES (?,?,?,?,?)""", data)  
+        self.cur.execute("""INSERT OR IGNORE INTO items (status, item, category, description, notes, project)  VALUES (?,?,?,?,?,?)""", data)  
         self.conn.commit()
 
-    def read(self, projectid):
-        self.cur.execute("""SELECT * FROM items WHERE project = ?""", projectid) 
+    def read_active(self, projectid):
+        self.cur.execute("""SELECT * FROM items WHERE project = ? AND status = 'active'""", projectid) 
         row = self.cur.fetchall()
-        return row   
+        return row 
+
+    def read_completed(self, projectid):
+        self.cur.execute("""SELECT * FROM items WHERE project = ? AND status = 'completed'""", projectid) 
+        row = self.cur.fetchall()
+        return row         
 
     def delete(self, id):
         self.cur.execute("DELETE FROM items WHERE itemid = ?", id)
@@ -76,7 +82,9 @@ class Items:
         self.cur.execute("UPDATE items SET notes = ? WHERE itemid = ? ", (data, id))
         self.conn.commit()
 
-
+    def mark_completed(self, id):
+        self.cur.execute("UPDATE items SET status = 'completed' WHERE itemid = ?", id)
+        self.conn.commit()
         
 
 
