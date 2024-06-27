@@ -9,36 +9,35 @@ class ViewItem(QWidget):
         self.item_db = Items()
         self.item = self.item_db.find(item)
 
-        self.setWindowTitle(self.item[1])
+        self.setWindowTitle(self.item[2])
         self.resize(500, 500)
 
         #content
         details = QGroupBox("Item Details")
 
         item_label = QLabel("Item:")
-        self.item_name = QLabel(self.item[1])
-        self.item_line_edit = QLineEdit(self.item[1])
+        self.item_name = QLabel(self.item[2])
+        self.item_line_edit = QLineEdit(self.item[2])
         
         category_label = QLabel("Category:")
-        self.item_category = QLabel(self.item[2])
+        self.item_category = QLabel(self.item[3])
         self.category_select = QComboBox()
         self.category_select.addItems(["Bug", "Feature", "MileStone"])
 
         description_label = QLabel("Description:")
-        self.item_description = QLabel(self.item[3])
-        self.description_line_edit = QLineEdit(self.item[3])
+        self.item_description = QLabel(self.item[4])
+        self.description_line_edit = QLineEdit(self.item[4])
 
         notes_label = QLabel("Notes:")
         self.item_notes = QTextEdit()
-        self.item_notes.setPlainText(self.item[4])
+        self.item_notes.setPlainText(self.item[5])
         self.item_notes.textChanged.connect(self.show_save_button)
 
         #buttons
         self.save_button = QPushButton("Save") #slot on manage project file
         self.cancel_button = QPushButton("Cancel")
         self.cancel_button.clicked.connect(self.close_window)
-        button_edit_details = QPushButton("Edit")
-        button_edit_details.clicked.connect(self.edit_details)
+        
         
 
 
@@ -84,7 +83,6 @@ class ViewItem(QWidget):
         #main
         layout = QVBoxLayout()
         layout.addWidget(details)
-        layout.addWidget(button_edit_details, alignment=Qt.AlignRight)
         layout.addLayout(notes_layout)
         layout.addLayout(self.button_layout)
         
@@ -97,12 +95,7 @@ class ViewItem(QWidget):
     def close_window(self):
         self.hide()
 
-    def edit_details(self):
-        self.item_layout.replaceWidget(self.item_name, self.item_line_edit)
-        self.category_layout.replaceWidget(self.item_category, self.category_select)
-        self.description_layout.replaceWidget(self.item_description, self.description_line_edit)       
-        
-
+   
 
         
         
