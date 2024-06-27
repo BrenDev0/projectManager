@@ -173,7 +173,11 @@ class Manager(QWidget):
          
          self.new_item.hide() 
          self.items_db.insert(item) 
-         self.load_data()   
+         self.load_data() 
+
+         self.new_item.item_line_edit.clear()
+         self.new_item.description_edit.clear()
+         self.new_item.notes_edit.clear() 
 
     def view_item(self):
          item = self.agenda_table.item(self.agenda_table.currentRow(), 0).text()
